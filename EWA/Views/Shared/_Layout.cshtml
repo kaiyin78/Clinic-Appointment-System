@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="/Images/favicon.png">
+
+    <link rel="stylesheet" href="~/Content/PagedList.css" />
+    <link rel="stylesheet" href="~/Content/app.css">
+    @RenderSection("head", false)
+</head>
+<body>
+    <header>
+        <h1><a href="~/">ASP.NET MVC</a> </h1>
+    </header>
+    <nav>
+        <a href="~/">Index</a>
+        <a href="~/Home/Appointment">Appointment</a>
+        <a href="~/Home/Doctor">Doctor</a>
+        <a href="~/Home/Admin">Admin</a>
+        <a href="~/Home/MAP">Map</a>
+        <a href="~/Home/AppointmentHistory">AppointmentHistory</a>
+        <a href="~/Home/Chat">Chat</a>
+        <a href="~/Home/ScheduleShow">ScheduleShow</a>
+        <a href="~/Home/ScheduleList">ScheduleList</a>
+        <a href="~/Home/ScheduleSearch">ScheduleSearch</a>
+    </nav>
+    <main>
+        <h1>@ViewBag.Title</h1>
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+    <footer>
+        Developed by <b>Bae Suzy</b> &middot;
+        Copyrighted &copy; @DateTime.Today.Year
+    </footer>
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    @RenderSection("foot", false)
+</body>
+
+
+</html>

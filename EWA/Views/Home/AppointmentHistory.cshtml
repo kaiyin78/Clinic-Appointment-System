@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Schedule>
+@{
+    ViewBag.Title = "AppointmentHistory";
+}
+
+<h2>AppointmentHistory</h2>
+
+<table>
+    <tr>
+        <th>Schedule ID</th>
+        <th>Patient ID</th>
+        <th>DoctorID</th>
+        <th>Start Time</th>
+        <th>Remark</th>
+        <th></th>
+    </tr>
+    @foreach (var s in Model)
+    {
+<tr>
+    <td>@s.Id</td>
+    <td>@s.PatientId (@s.Patient.Name)</td>
+    <td>@s.DoctorId (@s.Doctor.Name)</td>
+    <td>@s.DateTime.ToString("yyyy-MM-dd-HH-m")</td>
+    <td>@s.Remark</td>
+    <td>
+
+        @Html.ActionLink("Appointment History Detail", "AppointmentHistoryDetail", new { Id = s.Id })
+    </td>
+</tr>
+    }
+</table>
+

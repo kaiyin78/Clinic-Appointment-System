@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Schedule>
+@{
+    ViewBag.Title = "Schedule Search";
+}
+
+<form>
+
+    @Html.DropDownList("Date", (SelectList)ViewBag.DateList)
+    @Html.DropDownList("Time", (SelectList)ViewBag.TimeList)
+    <button>Submit</button>
+</form>
+
+@foreach (var item in Model)
+{
+
+    @item.Id
+    <div style="margin-bottom: 2px">
+        <span class="badge">@item.Id</span>
+        @item.DateTime.ToString("yyyy-MM-dd") : @item.Remark
+    </div>
+}
+

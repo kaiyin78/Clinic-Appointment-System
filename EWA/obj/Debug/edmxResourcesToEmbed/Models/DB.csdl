@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="DBModel.Admin" />
+    <EntitySet Name="Doctors" EntityType="DBModel.Doctor" />
+    <EntitySet Name="Feedbacks" EntityType="DBModel.Feedback" />
+    <EntitySet Name="Patients" EntityType="DBModel.Patient" />
+    <AssociationSet Name="FK_Feedback_Doctor" Association="DBModel.FK_Feedback_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Feedback" EntitySet="Feedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Feedback_Patient" Association="DBModel.FK_Feedback_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Feedback" EntitySet="Feedbacks" />
+    </AssociationSet>
+    <EntitySet Name="Schedules" EntityType="DBModel.Schedule" />
+    <AssociationSet Name="FK_Schedule_Doctor" Association="DBModel.FK_Schedule_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Patient" Association="DBModel.FK_Schedule_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Hash" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Hash" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="PhotoURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Feedbacks" Relationship="DBModel.FK_Feedback_Doctor" FromRole="Doctor" ToRole="Feedback" />
+    <NavigationProperty Name="Schedules" Relationship="DBModel.FK_Schedule_Doctor" FromRole="Doctor" ToRole="Schedule" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Doctor" Relationship="DBModel.FK_Feedback_Doctor" FromRole="Feedback" ToRole="Doctor" />
+    <NavigationProperty Name="Patient" Relationship="DBModel.FK_Feedback_Patient" FromRole="Feedback" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Hash" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="PhotoURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Feedbacks" Relationship="DBModel.FK_Feedback_Patient" FromRole="Patient" ToRole="Feedback" />
+    <NavigationProperty Name="Schedules" Relationship="DBModel.FK_Schedule_Patient" FromRole="Patient" ToRole="Schedule" />
+  </EntityType>
+  <Association Name="FK_Feedback_Doctor">
+    <End Type="DBModel.Doctor" Role="Doctor" Multiplicity="1" />
+    <End Type="DBModel.Feedback" Role="Feedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Feedback_Patient">
+    <End Type="DBModel.Patient" Role="Patient" Multiplicity="1" />
+    <End Type="DBModel.Feedback" Role="Feedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PatientId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Doctor" Relationship="DBModel.FK_Schedule_Doctor" FromRole="Schedule" ToRole="Doctor" />
+    <NavigationProperty Name="Patient" Relationship="DBModel.FK_Schedule_Patient" FromRole="Schedule" ToRole="Patient" />
+  </EntityType>
+  <Association Name="FK_Schedule_Doctor">
+    <End Type="DBModel.Doctor" Role="Doctor" Multiplicity="1" />
+    <End Type="DBModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Patient">
+    <End Type="DBModel.Patient" Role="Patient" Multiplicity="0..1" />
+    <End Type="DBModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

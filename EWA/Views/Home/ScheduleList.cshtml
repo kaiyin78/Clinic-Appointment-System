@@ -1,0 +1,59 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<Schedule>
+
+@{
+    ViewBag.Title = "Schedule List";
+}
+<form>
+    @Html.TextBox("name", null, new { autofocus = "" })
+</form>
+
+<p>
+    <a href="?">All</a>
+    @foreach (Doctor p in ViewBag.DoctorList)
+    {
+        @:| <a href="?DoctorId=@p.Username">@p.Username</a>
+    }
+</p>
+
+
+
+<p>
+    @Model.Count() record(s)  |
+    Page @Model.PageNumber of @Model.PageCount
+</p>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Doctor Name</th>
+        <th>DateTime</th>
+        <th>Remark</th>
+    </tr>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Id</td>
+            <td>@s.Doctor.Name</td>
+            <td>@s.DateTime</td>
+            <td>@s.Remark</td>
+        </tr>
+
+    }
+</table>
+
+@{
+    var options = PagedListRenderOptions.ClassicPlusFirstAndLast;
+    options.LinkToFirstPageFormat = "First";
+    options.LinkToLastPageFormat = "Last";
+    options.LinkToPreviousPageFormat = "Previous";
+    options.LinkToNextPageFormat = "Next";
+}
+
+@Html.PagedListPager(
+    Model,
+    p => $"?page={p}",
+    options
+    )

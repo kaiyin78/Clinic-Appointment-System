@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Doctor>
+@{
+    ViewBag.Title = "MAP";
+
+}
+
+<h2>Doctor</h2>
+<table class="table">
+    <tr>
+
+        <th>Doctor Name</th>
+        <th>Gender</th>
+
+        <th></th>
+    </tr>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Username</td>
+            <td>@s.Name</td>
+            <td>@s.Gender</td>
+
+
+        </tr>
+    }
+    @Html.ActionLink("Make Appointment", "Appointment")
+</table>

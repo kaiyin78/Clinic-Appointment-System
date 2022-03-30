@@ -1,0 +1,73 @@
+﻿@model AppointmentVM
+@{
+    ViewBag.Title = "Edit Appointment";
+}
+
+<form method="post">
+    <table class="table detail">
+        <tr>
+            <td colspan="2">
+                @Html.ValidationSummary(false)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Id)
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Id)
+                @Html.ValidationMessageFor(m => m.Id)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.DoctorId)
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.DoctorId, ViewBag.DoctorList as SelectList, "- Select One -")
+                @Html.ValidationMessageFor(m => m.DoctorId)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Date)
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.Date, ViewBag.DateList as SelectList, "- Select One -")
+                @Html.ValidationMessageFor(m => m.Date)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Time)
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.Time, ViewBag.TimeList as SelectList, "- Select One -")
+                @Html.ValidationMessageFor(m => m.Time)
+            </td>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.PatientId)
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.PatientId)
+                @Html.ValidationMessageFor(m => m.PatientId)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Remark)
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Remark)
+                @Html.ValidationMessageFor(m => m.Remark)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button>Edit</button>
+                <button onclick="location = location">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>

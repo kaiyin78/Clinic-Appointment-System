@@ -1,0 +1,30 @@
+﻿@model Schedule
+@{
+    ViewBag.Title = "Appintment History Detail";
+}
+
+<table class="APPHistorydetail">
+    <tr>
+        <th>Schedule ID</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>Doctor</th>
+        <td>@Model.DoctorId
+    <tr>
+        <th>Start Time</th>
+        <td>@Model.DateTime</td>
+    </tr>
+    <tr>
+        <th>End Time</th>
+        <td>@Model.EndDateTime</td>
+    </tr>
+    <tr>
+        <th>Remark</th>
+        <td>@Model.Remark</td>
+    </tr>
+
+</table>
+@Html.ActionLink("Appointment Edit", "AppointmentEdit", new { Id = Model.Id })
+@Html.ActionLink("Appointment Cancellation", "AppointmentCancel", new { Id = Model.Id })
+

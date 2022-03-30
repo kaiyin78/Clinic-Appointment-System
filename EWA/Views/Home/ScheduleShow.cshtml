@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Schedule>
+@{
+    ViewBag.Title = "Schedule";
+}
+
+<form>
+
+    @Html.DropDownList("Date", (SelectList)ViewBag.DateList)
+
+    <button>Submit</button>
+</form>
+
+@foreach (var item in Model)
+{
+
+    if (Model.Count() > 0)
+    {
+
+        @item.Id
+        <div style="margin-bottom: 2px">
+            <span class="badge">@item.Id</span>
+            @item.DateTime.ToString("yyyy-MM-dd") : @item.Remark
+        </div>
+    }
+    else
+    {
+<p>Your Basket is empty</p>
+
+    }
+}
+
